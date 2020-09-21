@@ -15,45 +15,133 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Poll',
+            name="Poll",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Название')),
-                ('description', models.CharField(blank=True, max_length=100, null=True, verbose_name='Описание')),
-                ('choice_type', models.CharField(choices=[('Ответ текстом', 'Ответ текстом'), ('Ответ с выбором одного варианта', 'Ответ с выбором одного варианта'), ('Ответ с выбором нескольких вариантов', 'Ответ с выбором нескольких вариантов')], default='Ответ текстом', max_length=100, verbose_name='Тип опроса')),
-                ('pub_date', models.DateTimeField(auto_now=True, verbose_name='Дата создания')),
-                ('end_date', models.DateTimeField(blank=True, null=True, verbose_name='Дата окончания')),
-                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100, verbose_name="Название")),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="Описание"
+                    ),
+                ),
+                (
+                    "choice_type",
+                    models.CharField(
+                        choices=[
+                            ("Ответ текстом", "Ответ текстом"),
+                            (
+                                "Ответ с выбором одного варианта",
+                                "Ответ с выбором одного варианта",
+                            ),
+                            (
+                                "Ответ с выбором нескольких вариантов",
+                                "Ответ с выбором нескольких вариантов",
+                            ),
+                        ],
+                        default="Ответ текстом",
+                        max_length=100,
+                        verbose_name="Тип опроса",
+                    ),
+                ),
+                (
+                    "pub_date",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата создания"),
+                ),
+                (
+                    "end_date",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="Дата окончания"
+                    ),
+                ),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'опрос',
-                'verbose_name_plural': 'опросы',
+                "verbose_name": "опрос",
+                "verbose_name_plural": "опросы",
             },
         ),
         migrations.CreateModel(
-            name='Choice',
+            name="Choice",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('choice_text', models.CharField(max_length=100, verbose_name='Выбор')),
-                ('poll', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='choices', to='polls.Poll', verbose_name='Опрос')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("choice_text", models.CharField(max_length=100, verbose_name="Выбор")),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="choices",
+                        to="polls.Poll",
+                        verbose_name="Опрос",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'вариант ответа',
-                'verbose_name_plural': 'варианты ответа',
+                "verbose_name": "вариант ответа",
+                "verbose_name_plural": "варианты ответа",
             },
         ),
         migrations.CreateModel(
-            name='Vote',
+            name="Vote",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('choice', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='votes', to='polls.Choice')),
-                ('poll', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Poll')),
-                ('voted_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "choice",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="votes",
+                        to="polls.Choice",
+                    ),
+                ),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="polls.Poll"
+                    ),
+                ),
+                (
+                    "voted_by",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'голос',
-                'verbose_name_plural': 'голоса',
-                'unique_together': {('poll', 'voted_by')},
+                "verbose_name": "голос",
+                "verbose_name_plural": "голоса",
+                "unique_together": {("poll", "voted_by")},
             },
         ),
     ]

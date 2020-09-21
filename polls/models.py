@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
@@ -25,10 +27,16 @@ class Poll(models.Model):
         return self.title
 
     def clean(self):
-        if self.end_date <= self.pub_date:
-            raise ValidationError(
-                f"Дата оканчания не может быть раньше даты публикации"
-            )
+        if self.pk:
+            if self.end_date <= self.pub_date:
+                raise ValidationError(
+                    f"Дата окончания не может быть раньше даты публикации"
+                )
+        else:
+            if self.end_date <= timezone.now():
+                raise ValidationError(
+                    f"Дата оканчания не может быть раньше текущей даты"
+                )
 
     class Meta:
         verbose_name = "опрос"
@@ -50,9 +58,16 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
-    choice = models.ForeignKey(Choice, related_name="votes", on_delete=models.CASCADE)
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    voted_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    choice = models.ForeignKey(
+        Choice,
+        related_name="votes",
+        on_delete=models.CASCADE,
+        verbose_name="Вариант ответа",
+    )
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, verbose_name="Опрос")
+    voted_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Голосующий"
+    )
 
     class Meta:
         unique_together = ("poll", "voted_by")
