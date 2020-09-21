@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -44,8 +46,18 @@ class ChoiceList(generics.ListCreateAPIView):
 class CreateVote(APIView):
     serializer_class = VoteSerializer
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                name="voted_by",
+                in_="query",
+                type=openapi.TYPE_INTEGER,
+                required=True,
+            ),
+        ]
+    )
     def post(self, request, pk, choice_pk):
-        voted_by = request.data.get("voted_by")
+        voted_by = request.query_params.get("voted_by")
         data = {"choice": choice_pk, "poll": pk, "voted_by": voted_by}
         serializer = VoteSerializer(data=data)
         serializer.is_valid(raise_exception=True)

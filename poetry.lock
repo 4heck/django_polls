@@ -69,6 +69,18 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
+description = "Sanity for the django choices functionality."
+name = "django-choices"
+optional = false
+python-versions = "*"
+version = "1.7.1"
+
+[package.dependencies]
+Django = ">=1.11"
+six = ">=1.13.0"
+
+[[package]]
+category = "main"
 description = "Web APIs for Django, made easy."
 name = "djangorestframework"
 optional = false
@@ -264,7 +276,7 @@ secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [metadata]
-content-hash = "abb3ca6a658233e9c060fc0525aa0679ab3e057f5836a914ec924fa484fd560f"
+content-hash = "c6fa1a902c9db7faac965e23e38b02e8244a3c852016b523577e38985ce42269"
 lock-version = "1.0"
 python-versions = "^3.7"
 
@@ -292,6 +304,10 @@ coreschema = [
 django = [
     {file = "Django-3.0.8-py3-none-any.whl", hash = "sha256:5457fc953ec560c5521b41fad9e6734a4668b7ba205832191bbdff40ec61073c"},
     {file = "Django-3.0.8.tar.gz", hash = "sha256:31a5fbbea5fc71c99e288ec0b2f00302a0a92c44b13ede80b73a6a4d6d205582"},
+]
+django-choices = [
+    {file = "django-choices-1.7.1.tar.gz", hash = "sha256:5fa69f54c57ea4b99c55f261e0862a7c59d2950363cf1f80a7b2c7393fd5c6e3"},
+    {file = "django_choices-1.7.1-py2.py3-none-any.whl", hash = "sha256:010b773c2ffc58e616701ba417bafdbf5ae23b5bcd18d6101d2c9755e0c2b4de"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.11.0-py3-none-any.whl", hash = "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4"},

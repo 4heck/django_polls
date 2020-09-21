@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
+from polls.enums import ChoiceTypeEnum
 
 
 class Poll(models.Model):
@@ -8,10 +9,16 @@ class Poll(models.Model):
     description = models.CharField(
         max_length=100, null=True, blank=True, verbose_name="Описание"
     )
+    choice_type = models.CharField(
+        choices=ChoiceTypeEnum.choices,
+        default=ChoiceTypeEnum.text,
+        max_length=100,
+        verbose_name="Тип опроса",
+    )
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
     pub_date = models.DateTimeField(auto_now=True, verbose_name="Дата создания")
     end_date = models.DateTimeField(
-        null=True, blank=True, verbose_name="Дата оканчания"
+        null=True, blank=True, verbose_name="Дата окончания"
     )
 
     def __str__(self):
@@ -38,8 +45,8 @@ class Choice(models.Model):
         return self.choice_text
 
     class Meta:
-        verbose_name = "выбор"
-        verbose_name_plural = "выборы"
+        verbose_name = "вариант ответа"
+        verbose_name_plural = "варианты ответа"
 
 
 class Vote(models.Model):
