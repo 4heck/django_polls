@@ -6,7 +6,7 @@ from polls.models import Poll
 
 def polls_list(request):
     MAX_OBJECTS = 20
-    polls = Poll.objects.values("question", "pub_date").annotate(
+    polls = Poll.objects.values("title", "pub_date").annotate(
         created_by=F("created_by__username")
     )
     results = polls[:MAX_OBJECTS]
@@ -18,7 +18,7 @@ def polls_detail(request, pk):
     poll = get_object_or_404(Poll, pk=pk)
     data = {
         "results": {
-            "question": poll.question,
+            "question": poll.title,
             "created_by": poll.created_by.username,
             "pub_date": poll.pub_date,
         }
