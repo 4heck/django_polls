@@ -31,7 +31,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "pollsapi.urls"
+ROOT_URLCONF = "django_polls.urls"
 
 TEMPLATES = [
     {
@@ -49,7 +49,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "pollsapi.wsgi.application"
+WSGI_APPLICATION = "django_polls.wsgi.application"
 
 DATABASES = {
     "default": {

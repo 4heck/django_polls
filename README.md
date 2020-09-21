@@ -11,10 +11,10 @@
 
        $ poetry shell
        
-3. Запуск зависимостей (postgres)
+3. Запуск postgres
 
        $ docker-compose up -d
        
-4. Запуск самого веб-сервера
+4. Запуск веб-сервера
 
        $ python3 manage.py runserver 0.0.0.0:8000
