@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
-from polls.apiviews import PollViewSet, ChoiceList, CreateVote, UserCreate, LoginView
+from polls.apiviews import PollViewSet, ChoiceList, CreateVote, UserCreate
 from django.conf import settings
 
 
